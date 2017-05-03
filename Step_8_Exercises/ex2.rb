@@ -1,5 +1,3 @@
-
-
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, hit return twice"
@@ -18,9 +16,20 @@ puts "The students of Villains Academy"
 puts "-------------"
 end
 
+def begining_with_letter(students)
+  letter_students = []
+  students.each do |student|
+     position = student[:name]
+    if position[0] == 'C' || position[0] == 'c'
+      letter_students << student
+    end
+  end
+  letter_students
+end
+
 def print(students)
-  students.each do |students|
-  puts "#{students[:name]} (#{students[:cohort]} cohort)"
+  students.each_with_index do |students, index|
+  puts "#{index + 1}. #{students[:name]} (#{students[:cohort]} cohort)"
   end
 end
 
@@ -28,28 +37,9 @@ def print_footer(students)
 puts "Overall, we have #{students.count} great students"
 end
 
-def interactive_menu
-  loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    selection = gets.chomp
-    case selection
-    when "1"
-      students = input_students
-    when "2"
-      print_header
-      print(students)
-      print_footer(students)
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, try again"
-    end
-  end
-end
 
 students = input_students
+new_students_list = begining_with_letter(students)
 print_header
-print(students)
+print(new_students_list)
 print_footer(students)
